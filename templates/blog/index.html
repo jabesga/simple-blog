@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Hellowave's blog</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="http://getbootstrap.com/examples/blog/blog.css" rel="stylesheet">
+</head>
+<body>
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item active" href=".">Home</a>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title">Hellowave's Blog</h1>
+        <p class="lead blog-description">A blog where I write anything I want.</p>
+    </div>
+
+    {% if user.is_authenticated %}
+    <hr>
+    <div>
+        <form method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            <p><input required=true class="form-control" name="post_title" type="text" placeholder="title"></p>
+            <p><textarea required=true class="form-control" name="post_content" rows="4" cols="40" style="height=100%;" placeholder="content"></textarea></p>
+            <p><input type="submit" value="POST"></p>
+        </form>
+    </div>
+    <hr>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            {% for post in posts %}
+            <div class="blog-post">
+                <h2 class="blog-post-title">{{ post.title }}</h2>
+                <p class="blog-post-meta">{{ post.date }} by <a href="#">Jon</a></p>
+
+                <p>{{ post.content }}</p>
+            </div>
+            {% endfor %}
+            <nav>
+                <ul class="pager" align="center" style="text-align: center;">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<footer class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+</body>
+</html>
