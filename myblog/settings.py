@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'nhz68333xclf8u2on*y3!5m(1i!!1q)xeosiv#0!4opgd!o9b2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -83,8 +83,27 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_PATH = os.path.realpath(os.path.dirname(__file__))
 
-TEMPLATE_DIRS = (
-    TEMPLATE_PATH,
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            TEMPLATE_PATH + '/templates/',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
